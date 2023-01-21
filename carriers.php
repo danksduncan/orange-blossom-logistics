@@ -1,3 +1,58 @@
+<?php
+  if(isset($_POST["submit"])){
+
+    $to = 'orangeblossomlogistics@gmail.com';
+    $from_email = "ops@orangeblossomlogistics.com";
+    $subject = 'OBL - Carrier Registration';
+    $firstname = $_POST['firstname'];
+    $lastname = $_POST['lastname'];
+    $address = $_POST['address'];
+    $city = $_POST['city'];
+    $state = $_POST['state'];
+    $zipcode = $_POST['zipcode'];
+    $phone = $_POST['phone'];
+    $mc = $_POST['mc'];
+    $dot = $_POST['dot'];
+    $email = $_POST['email'];
+    
+    if(!empty($_POST['payment'])) {
+        foreach($_POST['payment'] as $payment) {
+                echo $payment;
+        }
+    }
+    
+    $message = $_POST['message'];
+    date_default_timezone_set('US/Eastern');
+    $date = date('Y/m/d H:i:s');
+    
+    $headers = "";
+    $headers .= "MIME-Version: 1.0\r\n";
+    $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
+    $headers .= "From: $from_email" . "\r\n" . "Reply-To: $email"  ;
+    'Reply-To: <' . $_POST['email'] .'>' . PHP_EOL .
+    'X-Mailer: PHP/' . phpversion();
+
+    $message = 
+    "<b>First Name:</b> " . $_POST['firstname'] . "<br />\n 
+    <b>Last Name:</b> " . $_POST['lastname'] . "<br />\n 
+    <b>Address:</b> " . $_POST['address'] . "<br />\n 
+    <b>City:</b> " . $_POST['city'] . "<br />\n 
+    <b>State:</b> " . $_POST['state'] . "<br />\n 
+    <b>Zip Code:</b> " . $_POST['zipcode'] . "<br />\n 
+    <b>Phone Number:</b> " . $_POST['phone'] . "<br />\n
+    <b>MC Number:</b> " . $_POST['mc'] . "<br />\n 
+    <b>DOT Number:</b> " . $_POST['dot'] . "<br />\n 
+    <b>Email:</b> " . $_POST['email'] . "<br />\n 
+    <b>Payment Option:</b> " . $payment . "<br />\n 
+    <b>Message:</b> " . $_POST['message'] . "<br />\n 
+    <b>Form Submitted:</b> " . $date;
+    
+    mail($to, $subject, $message, $headers);
+    header('Location: https://orangeblossomlogistics.com/carriers'); 
+  }
+    
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -52,56 +107,7 @@
 <!--=================================
  preloader -->
 
-
-<!--=================================
- header -->
-
-<header id="header" class="header default fullWidth">
- 
-<!--=================================
- mega menu -->
-
-<div class="menu" id="onepagenav">  
-  <!-- menu start -->
-   <nav id="menu" class="mega-menu">
-    <!-- menu list items container -->
-    <section class="menu-list-items" style="background-color: black ;" >
-     <div class="container-fluid"> 
-      <div class="row"> 
-       <div class="col-lg-12 col-md-12"> 
-        <!-- menu logo -->
-        <ul class="menu-logo">
-            <li>
-                <a href="https://orangeblossomlogistics.com"><img src="images/about/oblogo5.png" alt=""> </a>
-            </li>
-        </ul>
-        <!-- menu links -->
-        <div class="menu-bar">
-         <ul class="menu-links">
-
-			<li><a href="https://orangeblossomlogistics.com/">Home</a></li>
-			
-			<li><a href="https://orangeblossomlogistics.com/quote">Shippers</a></li>
-             
- 			<li><a href="https://orangeblossomlogistics.com/carriers">Carriers</a></li>
- 			
-            <li><a href="https://orangeblossomlogistics.com/about-us">About Us</a></li>
-            
-            <li><a href="https://orangeblossomlogistics.com/contact">Contact Us</a></li>
-        </ul>
-        
-        </div>
-       </div>
-      </div>
-     </div>
-    </section>
-   </nav>
-  <!-- menu end -->
- </div>
-</header>
-
-<!--=================================
- header -->
+<?php include 'header.php';?>
  
 <!--=================================
  banner -->
@@ -140,127 +146,92 @@
 <form method="post">
       <div class="contact-form clearfix">
           <div class="row" style="justify-content: center;">
-            <div class="col-lg-3">
+            <div class="col-lg-4">
                 <div class="section-field">
                 <input id="firstname" type="text" placeholder="First Name*" class="form-control" name="firstname" required>
-                  <?php
-                      if(isset($_POST["submit"])){
-        
-                        $to = 'nospampleaseitsannoying@gmail.com';
-                        $from_email = "ops@orangeblossomlogistics.com";
-                        $subject = 'New Inquiry';
-                        $phone = $_POST['phone'];
-                        $email = $_POST['email'];
-                        $message = $_POST['message'];
-                        date_default_timezone_set('US/Eastern');
-                        $date = date('Y/m/d H:i:s');
-                        
-                        $headers .= "MIME-Version: 1.0\r\n";
-                        $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
-                        $headers .= "From: $from_email" . "\r\n" . "Reply-To: $email"  ;
-                        'Reply-To: <' . $_POST['email'] .'>' . PHP_EOL .
-                        'X-Mailer: PHP/' . phpversion();
-                        
-                        $message = "<b>My Name:</b> " . $_POST['name'] . "<br />\n <b>My Phone Number:</b> " . $_POST['phone'] . "<br />\n <b>My Email:</b> " . $_POST['email'] . "<br />\n <b>Message:</b> " . $_POST['message'] . "<br />\n <b>Form Submitted:</b> " . $date;
-                        
-                        mail($to, $subject, $message, $headers);
-                        header('Location: https://orangeblossomlogistics.com'); 
-                      }
-                        
-                      ?>
                  </div> 
              </div>
-             <div class="col-lg-3">
+             <div class="col-lg-4">
                  <div class="section-field">
                     <input type="text" placeholder="Last Name*" class="form-control" name="lastname" required>
                   </div>
               </div>
-              <div class="col-lg-3">
-                 <div class="section-field">
-                    <input type="text" placeholder="Title*" class="form-control" name="title" required>
-                  </div>
-              </div>
           </div>
           <div class="row" style="justify-content: center;">
-             <div class="col-lg-9">
+             <div class="col-lg-8">
                  <div class="section-field">
-                    <input type="text" placeholder="Address*" class="form-control" name="address" required>
+                    <input type="text" placeholder="Address" class="form-control" name="address">
                   </div>
               </div>
           </div>
           <div class="row" style="justify-content: center;">
               <div class="col-lg-3">
                  <div class="section-field">
-                    <input type="text" placeholder="City*" class="form-control" name="city">
+                    <input type="text" placeholder="City" class="form-control" name="city">
                   </div>
                </div>
              <div class="col-lg-2">
                  <div class="section-field">
-                    <input type="text" placeholder="State/Province*" class="form-control" name="state">
+                    <input type="text" placeholder="State/Province" class="form-control" name="state">
                   </div>
                </div>
-               <div class="col-lg-2">
+               <div class="col-lg-3">
                  <div class="section-field">
-                    <input type="text" placeholder="Zip/Postal Code*" class="form-control" name="zipcode">
-                  </div>
-               </div>
-               <div class="col-lg-2">
-                 <div class="section-field">
-                    <input type="text" placeholder="Country*" class="form-control" name="country">
+                    <input type="text" placeholder="Zip/Postal Code" class="form-control" name="zipcode" onkeypress="allowNumbersOnly(event)">
                   </div>
                </div>
           </div>
           <div class="row" style="justify-content: center;">
-             <div class="col-lg-3">
+             <div class="col-lg-4">
                  <div class="section-field">
-                    <input type="text" placeholder="Phone Number*" class="form-control" name="phone">
+                    <input type="text" placeholder="Phone Number*" class="form-control" name="phone" onkeypress="allowNumbersOnly(event)" required>
                   </div>
               </div>
-             <div class="col-lg-3">
+             <div class="col-lg-2">
                  <div class="section-field">
-                    <input type="text" placeholder="MC Number*" class="form-control" name="mc">
+                    <input type="text" placeholder="MC Number" class="form-control" name="mc">
                   </div>
              </div>
-             <div class="col-lg-3">
+             <div class="col-lg-2">
                  <div class="section-field">
-                    <input type="text" placeholder="DOT Number*" class="form-control" name="dot">
+                    <input type="text" placeholder="DOT Number*" class="form-control" name="dot" required>
                   </div>
               </div>
           </div>
           <div class="row" style="justify-content: center;">
-             <div class="col-lg-9">
+             <div class="col-lg-8">
                  <div class="section-field">
                     <input type="email" placeholder="Email*" class="form-control" name="email" required>
                   </div>
               </div>
           </div>
           <div class="row" style="justify-content: center;">
-             <div class="col-lg-9">
-            <div class="section-field">
+             <div class="col-lg-8">
+            <div class="section-field form-group">
               <div class="mb-20">
-                     <label> Payment Option: * </label>
+                     <label> Payment Option: </label>
               </div>
               <div class="remember-radio mb-30">
-                     <input type="radio" name="payment" id="check" />
-                     <label for="check"> Check By Mail (30 days)</label>
+                     <input type="radio" name="payment[]" id="check" value="Check By Mail"/>
+                     <label for="html"> Check By Mail (30 days)</label>
                </div>
                <div class="remember-radio mb-30">
-                     <input type="radio" name="payment" id="quickpay" />
-                     <label for="quickpay"> Quickpay 2-3 days (5%)</label>
+                     <input type="radio" name="payment[]" id="quickpay" value="Quickpay 2-3 days (5%)"/>
+                     <label for="html"> Quickpay 2-3 days (5%)</label>
                 </div>
                <div class="remember-radio mb-30">
-                     <input type="radio" name="payment" id="quickpay1" />
-                     <label for="quickpay1"> Quickpay 5-7 days (3%)</label>
+                     <input type="radio" name="payment[]" id="quickpay1" value="Quickpay 5-7 days (3%)"/>
+                     <label for="html"> Quickpay 5-7 days (3%)</label>
                 </div>
-                <div class="remember-radio mb-30">
-                     <input type="radio" name="payment" id="factoring" />
-                     <label for="factoring"> Factoring Company</label>
+                <div class="remember-radio">
+                     <input type="radio" name="payment[]" id="factoring" value="Factoring Company"/>
+                     <label for="html"> Factoring Company</label>
                 </div>
               </div>
               </div>
           </div>
           <div class="row" style="justify-content: center;">
-              <div class="col-lg-9" style=" text-align: center; ">
+              <div class="col-lg-8" style=" text-align: center; ">
                   <div class="section-field textarea">
                     <textarea class="input-message form-control" placeholder="Message*"  rows="7" name="message" required></textarea>
                   </div>
@@ -279,7 +250,7 @@
          <button id="submit" name="submit" type="submit" value="Send" class="button"><span> Submit </span> <i class="fa fa-paper-plane"></i></button>
           </div> 
         </form>
-           <div id="ajaxloader" style="display:none"><img class="mx-auto mt-30 mb-30 d-block" src="../../images/pre-loader/loader-02.svg" alt=""></div>
+           <div id="ajaxloader" style="display:none"><img class="mx-auto mt-30 mb-30 d-block" src="../../images/pre-loader/loader-06.svg" alt=""></div>
         </div>
     </div>
   </div>
@@ -318,6 +289,15 @@
  
 <!--=================================
  jquery -->
+ 
+<script>
+  function allowNumbersOnly(e) {
+    var code = (e.which) ? e.which : e.keyCode;
+    if (code > 31 && (code < 48 || code > 57)) {
+        e.preventDefault();
+    }
+}
+</script>
 
 <!-- jquery -->
 <script src="../../js/jquery-3.3.1.min.js"></script>
