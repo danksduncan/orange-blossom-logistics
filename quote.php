@@ -1,3 +1,53 @@
+<?php
+  if(isset($_POST["submit"])){
+
+    $to = 'orangeblossomlogistics@gmail.com';
+    $from_email = "ops@orangeblossomlogistics.com";
+    $subject = 'OBL - Quote Submission';
+    $firstname = $_POST['firstname'];
+    $lastname = $_POST['lastname'];
+    $company = $_POST['company'];
+    $phone = $_POST['phone'];
+    $email = $_POST['email'];
+    $pickzip = $_POST['pickzip'];
+    $destinationzip = $_POST['destinationzip'];
+    $dimensions = $_POST['dimensions'];
+
+    if(!empty($_POST['equipment'])) {
+        foreach($_POST['equipment'] as $equipment) {
+                echo $equipment;
+        }
+    }
+    
+    $message = $_POST['message'];
+    date_default_timezone_set('US/Eastern');
+    $date = date('Y/m/d H:i:s');
+    
+    $headers = "";
+    $headers .= "MIME-Version: 1.0\r\n";
+    $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
+    $headers .= "From: $from_email" . "\r\n" . "Reply-To: $email"  ;
+    'Reply-To: <' . $_POST['email'] .'>' . PHP_EOL .
+    'X-Mailer: PHP/' . phpversion();
+    
+    $message = 
+    "<b>First Name:</b> " . $_POST['firstname'] . "<br />\n 
+    <b>Last Name:</b> " . $_POST['lastname'] . "<br />\n 
+    <b>Company:</b> " . $_POST['company'] . "<br />\n 
+    <b>Phone Number:</b> " . $_POST['phone'] . "<br />\n 
+    <b>Email:</b> " . $_POST['email'] . "<br />\n 
+    <b>Pickup Zip Code:</b> " . $_POST['pickzip'] . "<br />\n 
+    <b>Destination Zip Code:</b> " . $_POST['destinationzip'] . "<br />\n 
+    <b>Dimensions:</b> " . $_POST['dimensions'] . "<br />\n 
+    <b>Equipment:</b> " . $equipment . "<br />\n 
+    <b>Message:</b> " . $_POST['message'] . "<br />\n 
+    <b>Form Submitted:</b> " . $date;
+    
+    mail($to, $subject, $message, $headers);
+    header('Location: https://orangeblossomlogistics.com/quote'); 
+  }
+    
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -52,56 +102,7 @@
 <!--=================================
  preloader -->
 
-
-<!--=================================
- header -->
-
-<header id="header" class="header default fullWidth">
- 
-<!--=================================
- mega menu -->
-
-<div class="menu" id="onepagenav">  
-  <!-- menu start -->
-   <nav id="menu" class="mega-menu">
-    <!-- menu list items container -->
-    <section class="menu-list-items" style="background-color: black ;" >
-     <div class="container-fluid"> 
-      <div class="row"> 
-       <div class="col-lg-12 col-md-12"> 
-        <!-- menu logo -->
-        <ul class="menu-logo">
-            <li>
-                <a href="https://orangeblossomlogistics.com"><img src="images/about/oblogo5.png" alt=""> </a>
-            </li>
-        </ul>
-        <!-- menu links -->
-        <div class="menu-bar">
-         <ul class="menu-links">
-
-			<li><a href="https://orangeblossomlogistics.com/">Home</a></li>
-			
-			<li><a href="https://orangeblossomlogistics.com/quote">Shippers</a></li>
-             
- 			<li><a href="https://orangeblossomlogistics.com/carriers">Carriers</a></li>
- 			
-            <li><a href="https://orangeblossomlogistics.com/about-us">About Us</a></li>
-            
-            <li><a href="https://orangeblossomlogistics.com/contact">Contact Us</a></li>
-        </ul>
-        
-        </div>
-       </div>
-      </div>
-     </div>
-    </section>
-   </nav>
-  <!-- menu end -->
- </div>
-</header>
-
-<!--=================================
- header -->
+<?php include 'header.php';?>
  
 <!--=================================
  banner -->
@@ -143,55 +144,6 @@
             <div class="col-lg-4">
                 <div class="section-field">
                 <input id="firstname" type="text" placeholder="First Name*" class="form-control" name="firstname" required>
-                  <?php
-                      if(isset($_POST["submit"])){
-        
-                        $to = 'orangeblossomlogistics@gmail.com';
-                        $from_email = "ops@orangeblossomlogistics.com";
-                        $subject = 'OBL - Quote Submission';
-                        $firstname = $_POST['firstname'];
-                        $lastname = $_POST['lastname'];
-                        $company = $_POST['company'];
-                        $phone = $_POST['phone'];
-                        $email = $_POST['email'];
-                        $pickzip = $_POST['pickzip'];
-                        $destinationzip = $_POST['destinationzip'];
-                        $dimensions = $_POST['dimensions'];
-
-                        if(!empty($_POST['equipment'])) {
-                            foreach($_POST['equipment'] as $equipment) {
-                                    echo $equipment;
-                            }
-                        }
-                        
-                        $message = $_POST['message'];
-                        date_default_timezone_set('US/Eastern');
-                        $date = date('Y/m/d H:i:s');
-                        
-                        $headers .= "MIME-Version: 1.0\r\n";
-                        $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
-                        $headers .= "From: $from_email" . "\r\n" . "Reply-To: $email"  ;
-                        'Reply-To: <' . $_POST['email'] .'>' . PHP_EOL .
-                        'X-Mailer: PHP/' . phpversion();
-                        
-                        $message = 
-                        "<b>First Name:</b> " . $_POST['firstname'] . "<br />\n 
-                        <b>Last Name:</b> " . $_POST['lastname'] . "<br />\n 
-                        <b>Company:</b> " . $_POST['company'] . "<br />\n 
-                        <b>Phone Number:</b> " . $_POST['phone'] . "<br />\n 
-                        <b>Email:</b> " . $_POST['email'] . "<br />\n 
-                        <b>Pickup Zip Code:</b> " . $_POST['pickzip'] . "<br />\n 
-                        <b>Destination Zip Code:</b> " . $_POST['destinationzip'] . "<br />\n 
-                        <b>Dimensions:</b> " . $_POST['dimensions'] . "<br />\n 
-                        <b>Equipment:</b> " . $equipment . "<br />\n 
-                        <b>Message:</b> " . $_POST['message'] . "<br />\n 
-                        <b>Form Submitted:</b> " . $date;
-                        
-                        mail($to, $subject, $message, $headers);
-                        header('Location: https://orangeblossomlogistics.com'); 
-                      }
-                        
-                      ?>
                  </div> 
              </div>
              <div class="col-lg-4">
@@ -203,31 +155,31 @@
           <div class="row" style="justify-content: center;">
              <div class="col-lg-8">
                  <div class="section-field">
-                    <input type="text" placeholder="Company*" class="form-control" name="company">
+                    <input type="text" placeholder="Company" class="form-control" name="company">
                   </div>
               </div>
           </div>
           <div class="row" style="justify-content: center;">
               <div class="col-lg-3">
                  <div class="section-field">
-                    <input type="text" placeholder="Phone*" class="form-control" name="phone">
+                    <input type="text" placeholder="Phone*" class="form-control" name="phone" onkeypress="allowNumbersOnly(event)" required>
                   </div>
                </div>
              <div class="col-lg-5">
                  <div class="section-field">
-                    <input type="email" placeholder="Email*" class="form-control" name="email">
+                    <input type="email" placeholder="Email*" class="form-control" name="email" required>
                   </div>
                </div>
           </div>
           <div class="row" style="justify-content: center;">
               <div class="col-lg-4">
                  <div class="section-field">
-                    <input type="text" placeholder="Pickup Zip Code" class="form-control" name="pickzip">
+                    <input type="text" placeholder="Pickup Zip Code" class="form-control" name="pickzip" onkeypress="allowNumbersOnly(event)">
                   </div>
                </div>
              <div class="col-lg-4">
                  <div class="section-field">
-                    <input type="text" placeholder="Destination Zip Code" class="form-control" name="destinationzip">
+                    <input type="text" placeholder="Destination Zip Code" class="form-control" name="destinationzip" onkeypress="allowNumbersOnly(event)">
                   </div>
                </div>
           </div>
@@ -240,25 +192,25 @@
           </div>
           <div class="row" style="justify-content: center;">
              <div class="col-lg-8">
-            <div class="section-field">
+            <div class="section-field form-group">
               <div class="mb-20">
-                     <label> Equipment Needed: * </label>
+                     <label> Equipment Needed: </label>
               </div>
-              <div class="remember-checkbox mb-30">
-                     <input type="checkbox" class="form-control" name="equipment[]" id="dry" value="Dry"/>
-                     <label for="dry"> Dry</label>
+              <div class="remember-radio mb-30">
+                     <input type="radio" id="dry" name="equipment[]" value="Dry">
+                     <label for="html">Dry</label><br>
                </div>
-               <div class="remember-checkbox mb-30">
-                     <input type="checkbox" class="form-control" name="equipment[]" id="reefer" value="Reefer"/>
-                     <label for="reefer"> Reefer</label>
+               <div class="remember-radio mb-30">
+                     <input type="radio" id="reefer" name="equipment[]" value="Reefer">
+                     <label for="html">Reefer</label><br>
                 </div>
-               <div class="remember-checkbox mb-30">
-                     <input type="checkbox" class="form-control" name="equipment[]" id="flatbed" value="Flatbed"/>
-                     <label for="flatbed"> Flatbed</label>
+               <div class="remember-radio mb-30">
+                     <input type="radio" id="flatbed" name="equipment[]" value="Flatbed">
+                     <label for="html">Flatbed</label><br>
                 </div>
-                <div class="remember-checkbox mb-30">
-                     <input type="checkbox" class="form-control" name="equipment[]" id="boxtruck" value="Box Truck"/>
-                     <label for="boxtruck"> Box Truck</label>
+                <div class="remember-radio">
+                     <input type="radio" id="boxtruck" name="equipment[]" value="Box Truck">
+                     <label for="html">Box Truck</label><br>
                 </div>
               </div>
               </div>
@@ -266,7 +218,7 @@
           <div class="row" style="justify-content: center;">
               <div class="col-lg-8" style=" text-align: center; ">
                   <div class="section-field textarea">
-                    <textarea class="input-message form-control" placeholder="Message*"  rows="7" name="message"></textarea>
+                    <textarea class="input-message form-control" placeholder="Message*"  rows="7" name="message" required></textarea>
                   </div>
               </div>
           </div>
@@ -322,6 +274,15 @@
  
 <!--=================================
  jquery -->
+ 
+<script>
+  function allowNumbersOnly(e) {
+    var code = (e.which) ? e.which : e.keyCode;
+    if (code > 31 && (code < 48 || code > 57)) {
+        e.preventDefault();
+    }
+}
+</script>
 
 <!-- jquery -->
 <script src="../../js/jquery-3.3.1.min.js"></script>
