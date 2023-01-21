@@ -49,56 +49,8 @@
 
 <!--=================================
  preloader -->
-    
-<!--=================================
- header -->
-
-<header id="header" class="header default fullWidth">
  
-<!--=================================
- mega menu -->
-
-<div class="menu" id="onepagenav">  
-  <!-- menu start -->
-   <nav id="menu" class="mega-menu">
-    <!-- menu list items container -->
-    <section class="menu-list-items" style="background-color: black ;" >
-     <div class="container-fluid"> 
-      <div class="row"> 
-       <div class="col-lg-12 col-md-12"> 
-        <!-- menu logo -->
-        <ul class="menu-logo">
-            <li>
-                <a href="https://orangeblossomlogistics.com"><img src="images/about/oblogo5.png" alt=""> </a>
-            </li>
-        </ul>
-        <!-- menu links -->
-        <div class="menu-bar">
-         <ul class="menu-links">
-
-			<li><a href="https://orangeblossomlogistics.com/">Home</a></li>
-			
-			<li><a href="https://orangeblossomlogistics.com/quote">Shippers</a></li>
-             
- 			<li><a href="https://orangeblossomlogistics.com/carriers">Carriers</a></li>
- 			
-            <li><a href="https://orangeblossomlogistics.com/about-us">About Us</a></li>
-            
-            <li><a href="https://orangeblossomlogistics.com/contact">Contact Us</a></li>
-        </ul>
-        
-        </div>
-       </div>
-      </div>
-     </div>
-    </section>
-   </nav>
-  <!-- menu end -->
- </div>
-</header>
-
-<!--=================================
- header -->
+<?php include 'header.php';?>
  
  <!--=================================
  banner -->
@@ -193,7 +145,6 @@
       </ul>
     </div>
    </div>
-     
   </div>
 </footer>
 
