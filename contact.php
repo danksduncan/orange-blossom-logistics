@@ -1,3 +1,29 @@
+<?php
+  if(isset($_POST["submit"])){
+    
+    $to = 'orangeblossomlogistics@gmail.com';
+    $from_email = "ops@orangeblossomlogistics.com";
+    $subject = 'OBL - General Inquiry';
+    $phone = $_POST['phone'];
+    $email = $_POST['email'];
+    $comments = $_POST['comments'];
+    date_default_timezone_set('US/Eastern');
+    $date = date('Y/m/d H:i:s');
+    
+    $headers = "";
+    $headers .= "MIME-Version: 1.0\r\n";
+    $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
+    $headers .= "From: $from_email" . "\r\n" . "Reply-To: $email"  ;
+    'Reply-To: <' . $_POST['email'] .'>' . PHP_EOL .
+    'X-Mailer: PHP/' . phpversion();
+    
+    $message = "<b>My Name:</b> " . $_POST['name'] . "<br />\n <b>My Phone Number:</b> " . $_POST['phone'] . "<br />\n <b>My Email:</b> " . $_POST['email'] . "<br />\n <b>Comments:</b> " . $_POST['comments'] . "<br />\n <b>Form Submitted:</b> " . $date;
+    
+    mail($to, $subject, $message, $headers);
+    header('Location: https://orangeblossomlogistics.com/contact'); 
+  }
+    
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -51,57 +77,8 @@
 
 <!--=================================
  preloader -->
-
-
-<!--=================================
- header -->
-
-<header id="header" class="header default fullWidth">
  
-<!--=================================
- mega menu -->
-
-<div class="menu" id="onepagenav">  
-  <!-- menu start -->
-   <nav id="menu" class="mega-menu">
-    <!-- menu list items container -->
-    <section class="menu-list-items" style="background-color: black ;" >
-     <div class="container-fluid"> 
-      <div class="row"> 
-       <div class="col-lg-12 col-md-12"> 
-        <!-- menu logo -->
-        <ul class="menu-logo">
-            <li>
-                <a href="https://orangeblossomlogistics.com"><img src="images/about/oblogo5.png" alt=""> </a>
-            </li>
-        </ul>
-        <!-- menu links -->
-        <div class="menu-bar">
-         <ul class="menu-links">
-
-			<li><a href="https://orangeblossomlogistics.com/">Home</a></li>
-			
-			<li><a href="https://orangeblossomlogistics.com/quote">Shippers</a></li>
-             
- 			<li><a href="https://orangeblossomlogistics.com/carriers">Carriers</a></li>
- 			
-            <li><a href="https://orangeblossomlogistics.com/about-us">About Us</a></li>
-            
-            <li><a href="https://orangeblossomlogistics.com/contact">Contact Us</a></li>
-        </ul>
-        
-        </div>
-       </div>
-      </div>
-     </div>
-    </section>
-   </nav>
-  <!-- menu end -->
- </div>
-</header>
-
-<!--=================================
- header -->
+<?php include 'header.php';?>
  
 <!--=================================
 page-title-->
@@ -135,79 +112,27 @@ page-title -->
        </div>
       <div class="col-lg-12">
         <div id="formmessage">Success/Error Message Goes Here</div>
-<form method="post">
-      <div class="contact-form clearfix">
-          <div class="row">
-            <div class="col-lg-4">
-                <div class="section-field">
-                <input id="name" type="text" placeholder="Name*" class="form-control" name="name" required>
-                  <?php
-                      if(isset($_POST["submit"])){
-                          
-                      function CheckCaptcha($userResponse) {
-                            $fields_string = '';
-                            $fields = array(
-                                'secret' => '6Lf5W8ceAAAAAAcJh3stpSafBgIl6poE6IBQp28E',
-                                'response' => $userResponse
-                            );
-                            foreach($fields as $key=>$value)
-                            $fields_string .= $key . '=' . $value . '&';
-                            $fields_string = rtrim($fields_string, '&');
-                    
-                            $ch = curl_init();
-                            curl_setopt($ch, CURLOPT_URL, 'https://www.google.com/recaptcha/api/siteverify');
-                            curl_setopt($ch, CURLOPT_POST, count($fields));
-                            curl_setopt($ch, CURLOPT_POSTFIELDS, $fields_string);
-                            curl_setopt($ch, CURLOPT_RETURNTRANSFER, True);
-                    
-                            $res = curl_exec($ch);
-                            curl_close($ch);
-                    
-                            return json_decode($res, true);
-                        }
-                        
-                            // Call the function CheckCaptcha
-                            $result = CheckCaptcha($_POST['g-recaptcha-response']);
-                        
-                            if ($result['success']) {
-                                //If the user has checked the Captcha box
-                                echo "Captcha verified Successfully";
-                        	
-                            } else {
-                                // If the CAPTCHA box wasn't checked
-                               echo '<script>alert("Error Message");</script>';
-                                }
-                                
-        
-                        $to = 'orangeblossomlogistics@gmail.com';
-                        $from_email = "ops@orangeblossomlogistics.com";
-                        $subject = 'OBL - General Inquiry';
-                        $phone = $_POST['phone'];
-                        $email = $_POST['email'];
-                        $comments = $_POST['comments'];
-                        date_default_timezone_set('US/Eastern');
-                        $date = date('Y/m/d H:i:s');
-                        
-                        $headers .= "MIME-Version: 1.0\r\n";
-                        $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
-                        $headers .= "From: $from_email" . "\r\n" . "Reply-To: $email"  ;
-                        'Reply-To: <' . $_POST['email'] .'>' . PHP_EOL .
-                        'X-Mailer: PHP/' . phpversion();
-                        
-                        $message = "<b>My Name:</b> " . $_POST['name'] . "<br />\n <b>My Phone Number:</b> " . $_POST['phone'] . "<br />\n <b>My Email:</b> " . $_POST['email'] . "<br />\n <b>Comments:</b> " . $_POST['comments'] . "<br />\n <b>Form Submitted:</b> " . $date;
-                        
-                        mail($to, $subject, $message, $headers);
-                        header('Location: https://orangeblossomlogistics.com'); 
-                      }
-                        
-                      ?>
+    <form method="post">
+          <div class="contact-form clearfix">
+              <div class="row">
+                <div class="col-lg-4">
+                    <div class="section-field">
+                    <input id="name" type="text" placeholder="Name*" class="form-control" name="name" required>
                  </div> 
              </div>
              <div class="col-lg-4">
                  <div class="section-field">
-                    <input type="text" placeholder="Phone*" class="form-control" name="phone" required>
+                    <input type="text" placeholder="Phone*" class="form-control" name="phone" onkeypress="allowNumbersOnly(event)" required>
                   </div>
               </div>
+              <script>
+                  function allowNumbersOnly(e) {
+                    var code = (e.which) ? e.which : e.keyCode;
+                    if (code > 31 && (code < 48 || code > 57)) {
+                        e.preventDefault();
+                    }
+                }
+              </script>
               <div class="col-lg-4">
                  <div class="section-field">
                     <input type="email" placeholder="Email" class="form-control" name="email">
@@ -273,6 +198,12 @@ page-title -->
  
 <!--=================================
  jquery -->
+ 
+<script>
+    if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+    }
+</script>
 
 <!-- jquery -->
 <script src="../../js/jquery-3.3.1.min.js"></script>
